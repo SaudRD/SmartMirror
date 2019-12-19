@@ -1,0 +1,102 @@
+
+
+
+body{
+    
+  background-color: #000;
+  
+    }
+
+
+#content{
+     padding-right: 20px;
+     position: absolute;
+     right: 0;
+     width: 100px;
+     height: 120px;
+     color: #fff;
+     animation-name: showHide;
+     animation-duration: 4s;
+     animation-delay: 1s;
+     animation-fill-mode: backwards;
+    }
+
+.col-md-4{
+   
+    padding: 30px 10px; 
+    background: rgba(0,0,0, 0.75);
+    color: #fff;
+
+}
+
+.titlu{
+    
+    font-size:2em; 
+    color:#fff; 
+    text-transform:uppercase;
+    margin: 40px 0;
+
+  }
+
+.vremea{
+
+    color:#fff; 
+    font-size:4em; 
+    margin: 100px 0;
+
+}
+
+.temperatura{
+    
+    color:#fff;
+    font-size:2.5em;
+    position:relative; 
+    top:170px;
+    padding-right: 10px;
+
+}
+
+#form {
+    background: #fff;
+    padding: 4em 4em 2em;
+    max-width: 400px;
+    box-shadow: 0 0 1em #222;
+    border-radius: 2px;
+    
+  }
+
+
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400');
+
+* {
+  margin: 0;
+  font-family: 'Sunflower';
+}
+
+
+#clock {
+  background: #000;
+  position: absolute;
+  animation-name: showHide;
+  animation-duration: 4s;
+  animation-delay: 1s;
+  animation-fill-mode: backwards;
+
+}
+@keyframes showHide {
+  0% {
+      opacity: 0;
+  }
+
+  100% {
+      opacity: 1;
+  }
+}
+/*changing canvas position to affect clock position*/
+canvas {
+  position: absolute;   
+  left: 33%;
+  top: 20%;
+  height: 400px;
+}

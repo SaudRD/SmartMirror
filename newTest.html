@@ -1,0 +1,78 @@
+<html>
+<head>
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <style>
+ 		body {background: black;
+      overflow: hidden;
+     }
+  
+        		#p1 {
+			font-size: 50px;
+			color: #fff;
+			text-align: center;
+			animation-name: showHide;
+                animation-duration: 4s;
+                animation-delay: 1s;
+				animation-fill-mode: backwards;
+
+			}
+    #voiceToText
+    {
+        width: 100%;
+			border-radius: 5px;
+			height: 100px;
+			margin-top:  auto;
+			margin-left:  auto;
+			margin-right:  auto;
+			margin-bottom: auto;
+			display: block;
+			font-size: 60px;
+			font-weight: 100;
+			padding: 11px;
+			text-align: center;
+			color: rgb(209, 209, 209);
+			background: rgb(0, 0, 0);
+    }
+    @keyframes showHide {
+                0% {
+                    opacity: 0;
+                }
+
+                100% {
+                    opacity: 1;
+                }
+            }
+    </style>
+  <link rel="import" href="/index.html">
+
+</head>
+<body>
+    <script>
+        if (annyang) {
+          // Let's define our first command. First the text we expect, and then the function it should call
+          var commands = {
+            'good': function() {
+            alert("Hello! I am an alert box!");
+        
+            },
+
+          };
+        
+          // Add our commands to annyang
+          annyang.addCommands(commands);
+        
+          // Start listening. You can call this here, or attach this call to an event, button, etc.
+          annyang.start();
+          annyang.setLanguage('ar-SA');
+                  annyang.addCallback('result',function(whatWasHeard)
+                   { document.getElementById("voiceToText").innerHTML = whatWasHeard[0]; });
+        }
+        
+        
+        </script>
+            		<p id="p1">مساعد الصم والبكم</p>
+
+     <div id="voiceToText" type="text" name="lastname"></div>
+</body>
+</html>

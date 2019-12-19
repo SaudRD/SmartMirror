@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <link rel="import" href="/index.html">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     
+
+
+    <link rel="stylesheet" href="../smart/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.9/css/weather-icons.css" />
+    <title>Document</title>
+</head>
+
+<body>
+
+      
+    
+    <div id="content">
+        <div class="col-md-4 offset-md-4">
+            <div class="titlu text-center"> <span id="oras"></span></div>
+            <div class="vremea text-center"><i id="vreme" class="wi wi-day-cloudy"></i></div>
+            <div class="temperatura text-center"><span id="temp"></span><i class="wi 
+         wi-celsius"></i></div>
+        </div>
+    </div>
+
+
+    <div id="clock">
+        <canvas id="canvas" width="500" height="500"></canvas>
+    </div>
+
+    
+    
+    
+
+    
+    <script>
+        let oras = "abha";
+
+        getData = () => {
+            fetch("https://api.openweathermap.org/data/2.5/weather?q=" + oras + ",ksa&appid=e13633ea81194c12732cbaad057c5b38&units=metric").then(response => {
+                return response.json()
+            }).then(data => {
+                console.log(data);
+                addData(data);
+            })
+        }
+
+
+        addData = (informatii) => {
+            let temperatura = Math.round(informatii.main.temp);
+            let vreme = informatii.weather[0].main;
+
+            switch (vreme) {
+                case 'Clear': document.getElementById('vreme').className += 'wi wi-day-sunny'; break;
+                case 'Rain': document.getElementById('vreme').className += 'wi wi-day-rain'; break;
+                case 'Clouds': document.getElementById('vreme').className += 'wi wi-day-cloudy'; break;
+            }
+
+            document.getElementById('temp').innerHTML = temperatura;
+            document.getElementById('oras').innerHTML = oras;
+        }
+
+        getData();
+    </script>
+
+
+
+    <script>
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+        ctx.strokeStyle = "#fff";
+        ctx.lineWidth = 17;
+        ctx.lineCap = "round";
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = "#28d1fa";
+        ctx.textAlign = "center";
+
+        function degToRad(degree) {
+            var factor = Math.PI / 180;
+            return degree * factor;
+        }
+
+        function renderTime() {
+            var now = new Date();
+            var today = now.toDateString();
+            var time = now.toLocaleTimeString();
+            var hours = now.getHours();
+            var minutes = now.getMinutes();
+            var seconds = now.getSeconds();
+            var milliseconds = now.getMilliseconds();
+            var newSeconds = seconds + milliseconds / 1000;
+
+            // Background
+            gradient = ctx.createRadialGradient(250, 250, 5, 200, 250, 200);
+            gradient.addColorStop(0, "#09303a");
+            gradient.addColorStop(1, "#000");
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 500, 500);
+
+            // Hours
+            ctx.beginPath();
+            ctx.arc(250, 250, 200, degToRad(270), degToRad(hours * 30 - 90));
+            ctx.stroke();
+
+            // Minutes
+            ctx.beginPath();
+            ctx.arc(250, 250, 170, degToRad(270), degToRad(minutes * 6 - 90));
+            ctx.stroke();
+
+            // Seconds
+            ctx.beginPath();
+            ctx.arc(250, 250, 140, degToRad(270), degToRad(newSeconds * 6 - 90));
+            ctx.stroke();
+
+            // Date
+            ctx.font = "lighter 28px Roboto";
+            ctx.fillStyle = "#28d1fa";
+
+            ctx.fillText(today, 250, 250);
+
+            // Time
+            ctx.font = "lighter 15px Roboto ";
+            ctx.fillStyle = "#28d1fa";
+
+            ctx.fillText(time, 250, 280);
+        }
+        setInterval(renderTime, 40);
+
+    </script>
+
+
+
+</body>
+
+</html>

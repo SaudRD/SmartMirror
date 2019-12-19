@@ -1,0 +1,338 @@
+﻿
+<dictype html>
+    <html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <link rel="import" href="/index.html">
+
+
+        <meta charset="utf-8">
+        <title> </title>
+
+
+
+
+
+        <style>
+
+            table {
+                width: 700px;
+                height: 700px;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                animation-name: showHide;
+                animation-duration: 4s;
+                animation-delay: 1s;
+                animation-fill-mode: backwards;
+                border: none;
+                font-weight: 30;
+                font-size: 18px;
+            }
+
+            td {
+                border: none;
+            }
+
+            body {
+                color: white;
+                background: black;
+            }
+
+            img {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                animation-name: moveToLeft;
+                animation-duration: 5s;
+                border-radius: 30px;
+            }
+
+            @keyframes moveToLeft {
+                0% {
+                    transform: translateX(120px);
+                    opacity: 0;
+                }
+
+                100% {
+                    transform: translateX(0px);
+                    opacity: 1;
+                }
+            }
+
+            @keyframes showHide {
+                0% {
+                    opacity: 0;
+                }
+
+                100% {
+                    opacity: 1;
+                }
+            }
+        </style>
+    </head>
+    <body>
+            <div id="clock">
+                    <canvas id="canvas" width="500" height="500"></canvas>
+                </div>
+            
+                
+                
+                
+            
+                
+                <script>
+                    let oras = "abha";
+            
+                    getData = () => {
+                        fetch("https://api.openweathermap.org/data/2.5/weather?q=" + oras + ",ksa&appid=e13633ea81194c12732cbaad057c5b38&units=metric").then(response => {
+                            return response.json()
+                        }).then(data => {
+                            console.log(data);
+                            addData(data);
+                        })
+                    }
+            
+            
+                    addData = (informatii) => {
+                        let temperatura = Math.round(informatii.main.temp);
+                        let vreme = informatii.weather[0].main;
+            
+                        switch (vreme) {
+                            case 'Clear': document.getElementById('vreme').className += 'wi wi-day-sunny'; break;
+                            case 'Rain': document.getElementById('vreme').className += 'wi wi-day-rain'; break;
+                            case 'Clouds': document.getElementById('vreme').className += 'wi wi-day-cloudy'; break;
+                        }
+            
+                        document.getElementById('temp').innerHTML = temperatura;
+                        document.getElementById('oras').innerHTML = oras;
+                    }
+            
+                    getData();
+                </script>
+            
+            
+            
+                <script>
+                    var canvas = document.getElementById("canvas");
+                    var ctx = canvas.getContext("2d");
+                    ctx.strokeStyle = "#fff";
+                    ctx.lineWidth = 17;
+                    ctx.lineCap = "round";
+                    ctx.shadowBlur = 15;
+                    ctx.shadowColor = "#28d1fa";
+                    ctx.textAlign = "center";
+            
+                    function degToRad(degree) {
+                        var factor = Math.PI / 180;
+                        return degree * factor;
+                    }
+            
+                    function renderTime() {
+                        var now = new Date();
+                        var today = now.toDateString();
+                        var time = now.toLocaleTimeString();
+                        var hours = now.getHours();
+                        var minutes = now.getMinutes();
+                        var seconds = now.getSeconds();
+                        var milliseconds = now.getMilliseconds();
+                        var newSeconds = seconds + milliseconds / 1000;
+            
+                        // Background
+                        gradient = ctx.createRadialGradient(250, 250, 5, 200, 250, 200);
+                        gradient.addColorStop(0, "#09303a");
+                        gradient.addColorStop(1, "#000");
+                        ctx.fillStyle = gradient;
+                        ctx.fillRect(0, 0, 500, 500);
+            
+                        // Hours
+                        ctx.beginPath();
+                        ctx.arc(250, 250, 200, degToRad(270), degToRad(hours * 30 - 90));
+                        ctx.stroke();
+            
+                        // Minutes
+                        ctx.beginPath();
+                        ctx.arc(250, 250, 170, degToRad(270), degToRad(minutes * 6 - 90));
+                        ctx.stroke();
+            
+                        // Seconds
+                        ctx.beginPath();
+                        ctx.arc(250, 250, 140, degToRad(270), degToRad(newSeconds * 6 - 90));
+                        ctx.stroke();
+            
+                        // Date
+                        ctx.font = "lighter 28px Roboto";
+                        ctx.fillStyle = "#28d1fa";
+            
+                        ctx.fillText(today, 250, 250);
+            
+                        // Time
+                        ctx.font = "lighter 15px Roboto ";
+                        ctx.fillStyle = "#28d1fa";
+            
+                        ctx.fillText(time, 250, 280);
+                    }
+                    setInterval(renderTime, 40);
+            
+                </script>
+            
+            
+        <center>
+
+            <table border="1">
+
+                <tr>
+
+                    <td colspan="10">
+                        <center>القسم : الحاسب وتقنية المعلومات </center>
+                        <img class="img1" src="dr.jpg" height="250px">
+                        <br><br>
+                        <center>      .... اهلن بك : د.ابراهيم الوطبان    نتمنى لك يوماً سعيداً   </center>
+                        <br>
+
+
+                    </td>
+
+                </tr>
+
+
+                <tr dir="rtl">
+
+                    <td>مكان القاعة  </td>
+                    <td> اسم المقرر</td>
+
+                    <td>المقرر </td>
+                    <td>نوع المقرر  </td>
+                    <td> رقم الشعبة</td>
+                    <td>الوقت  </td>
+                    <td>اليوم </td>
+                </tr>
+
+                <tr dir="rtl">
+
+                    <td>1041520003  </td>
+
+                    <td>مشروع تخرج  </td>
+                    <td>برمج 492 </td>
+
+                    <td>نظري صباحي  </td>
+
+                    <td> 40443</td>
+
+                    <td> 0910 - 0730  </td>
+                    <td>الاحد  </td>
+
+
+                </tr>
+
+
+                <tr dir="rtl">
+
+                    <td>1041520003  </td>
+
+                    <td>تصميم واجهة المستخدم  </td>
+                    <td>برمج461 </td>
+
+                    <td>نظري صباحي  </td>
+
+                    <td> 57495</td>
+
+                    <td> 1100 - 12:50  </td>
+                    <td>الاحد  </td>
+
+
+                </tr>
+                <tr dir="rtl">
+
+                    <td>1041520005  </td>
+
+                    <td>مواضيع مختارة  </td>
+                    <td>برمج481 </td>
+
+                    <td>عملي صباحي  </td>
+
+                    <td> 30395</td>
+
+                    <td>1100 - 0910 </td>
+                    <td>الاثنين  </td>
+
+
+
+
+
+                </tr>
+                <tr dir="rtl">
+
+                    <td>1041520005  </td>
+
+                    <td>مواضيع مختارة    </td>
+                    <td>برمج481</td>
+
+                    <td>عملي صباحي   </td>
+
+                    <td> 30395</td>
+
+                    <td>0920 - 1100 </td>
+                    <td>الثلاثاء  </td>
+
+                </tr>
+
+                <tr dir="rtl">
+
+                    <td>1041520007  </td>
+
+                    <td>مشروع التخرج   </td>
+                    <td>برمج492 </td>
+
+                    <td>عملي صباحي   </td>
+
+                    <td> 57495</td>
+
+                    <td>1050 - 0730 </td>
+                    <td>الاربعاء  </td>
+
+
+
+                </tr>
+                <tr dir="rtl">
+
+
+                    <td>1041520003  </td>
+
+                    <td>تصميم واجهة المستخدم  </td>
+                    <td>برمج461 </td>
+
+                    <td>عملي  صباحي  </td>
+
+                    <td> 40443</td>
+
+                    <td>0100 - 0240 </td>
+                    <td>الاربعاء   </td>
+
+                </tr>
+
+
+
+
+
+
+
+
+
+            </table>
+            <br><br><br><br>
+
+
+
+
+
+    </body>
+
+
+
+
+
+</html>
+
+

@@ -1,0 +1,136 @@
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <style>
+
+        div {
+            margin: 80;
+            position: absolute;
+            background-color: ##292929;
+        }
+
+        body {
+            background-color: black;
+        }
+        .img2
+        {
+            display: block;
+
+                width: 90%;
+                height: 80%;
+                animation-name: showHide;
+                animation-duration: 4s;
+                animation-delay: 1s;
+                animation-fill-mode: backwards;
+        }
+        
+        #b2{
+            display: block;
+            margin-left: 35%;
+            margin-top: -5%;
+            width: 40%;
+                height: 80%;
+
+        }
+        #out {
+            text-align: center;
+            text-transform: uppercase;
+            color: white;
+            text-decoration: none;
+            font-size: 25px;
+            font-family: "Monadi";
+            margin-bottom: 100%;
+        }
+
+        p {
+            text-align: center;
+            text-transform: uppercase;
+            color: white;
+            font-size: 35px;
+            font-family: "Monadi";
+            animation-name: showHide;
+                animation-duration: 4s;
+                animation-delay: 1s;
+                animation-fill-mode: backwards;
+        }
+
+        @font-face {
+            font-family: "Monadi";
+            src: url("Monadi.ttf");
+            @import url(http://smartmirror1.000webhostapp.com/Monadi.ttf);
+        }
+        @keyframes showHide {
+                0% {
+                    opacity: 0;
+                }
+
+                100% {
+                    opacity: 1;
+                }
+    </style>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <script src="annyang.min.js"></script>
+</head>
+<body>
+    <script>
+if (annyang) {
+  // Let's define our first command. First the text we expect, and then the function it should call
+  var commands = {
+    'good': function() {
+    alert("Hello! I am an alert box!");
+
+    },
+    'ابراهيم الوطبان': function(){
+        window.location = "\drib.html"
+    },
+        'جدول البرمجيات': function(){
+        window.location = "ind2ex.html"
+    },
+        'جدول الشبكات': function(){
+        window.location = "network.html"
+    },
+            'عام': function(){
+        window.location = "index.html"
+    },
+    'الوقت': function(){
+        window.location = "w.html"
+    },
+                'مساعد الصم': function(){
+        window.location = "aa.html"
+    },
+    'دكتور ابراهيم': function(){
+        window.location = "\drib.html"
+    },
+    'الصم': function(){
+        window.location = "newTest.html"
+    },
+    'تعديل': function(){
+        window.location = "https://mjhh.pythonanywhere.com"
+    },
+    'حضور': function(){
+        window.location = "http://167.172.207.114/show_attendance.php"
+    },
+    
+
+  };
+
+  // Add our commands to annyang
+  annyang.addCommands(commands);
+
+  // Start listening. You can call this here, or attach this call to an event, button, etc.
+  annyang.start();
+
+}
+
+
+</script>
+<div id="b2"><img class="img2" src="logo.png" height="250px">
+</div>
+ <div>
+<p>انعكاس مساعد الطالب والمدرب</p>
+<p id="out"> اذكر اسم التخصص او اسمك بصوتك </p>
+</div>
+
+</body>
+</html>

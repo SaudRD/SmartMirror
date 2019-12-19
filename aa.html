@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.0/annyang.min.js"></script>
+
+<style>
+    * {margin:0; padding:0;
+			font-family: arial;
+		}
+		body {background: black;}
+			
+		#transcription {
+			width: 100%;
+			border-radius: 5px;
+			height: 100px;
+			margin-top:  auto;
+			margin-left:  auto;
+			margin-right:  auto;
+			margin-bottom: auto;
+			display: block;
+			font-size: 30px;
+			font-weight: 100;
+			padding: 11px;
+			text-align: center;
+			color: rgb(209, 209, 209);
+			background: rgb(0, 0, 0);
+		}
+		p {
+			font-size: 50px;
+			color: #fff;
+			text-align: center;
+			animation-name: showHide;
+                animation-duration: 4s;
+                animation-delay: 1s;
+				animation-fill-mode: forwards;
+
+			}
+			@keyframes showHide {
+                0% {
+                    opacity: 1;
+                }
+
+                100% {
+                    opacity: 0;
+                }
+            }
+
+
+
+</style>      
+</head>
+
+    <script type = "text/javascript">
+
+	function talk(){
+		
+		var recognizer = new webkitSpeechRecognition();
+            var transcription = document.getElementById("transcription");
+		recognizer.lang = "ar";
+	    recognizer.continuous = true;	
+		recognizer.onresult = function(event) {
+		    if (event.results.length > 0) {
+		        var result = event.results[event.results.length-1];
+		        if(result.isFinal) {
+
+		            console.log(result[0].transcript);
+		            var su = new SpeechSynthesisUtterance();
+		            su.continuous = true;
+		            console.log(event.results[event.results.length-1][0].transcript);
+		            su.lang = 'ar-SA';
+		            su.text = result[0].transcript;
+		            transcription.textContent = su.text;
+
+		        }
+		    }  
+		};
+		recognizer.start();
+	}	
+
+	</script>
+
+<body>
+    		<p>مساعد الصم والبكم</p>
+
+		<div id="transcription"></div>
+		<script>
+		    window.onload = talk();
+		    
+		</script>
+
+<script type="text/javascript" src="js/materialize.min.js"></script>
+
+</body>
+</html>
